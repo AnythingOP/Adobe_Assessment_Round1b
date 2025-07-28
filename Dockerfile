@@ -1,12 +1,17 @@
-FROM --platform=linux/amd64 python:3.10-slim
+# Use an official Python runtime as a parent image
+FROM python:3.11-slim
 
+# Set the working directory in the container
 WORKDIR /app
 
+# Copy the requirements file into the container first
 COPY requirements.txt .
+
+# Install any needed packages specified in requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY main.py .
-COPY src/ ./src/
-COPY models/ ./models/
+# Copy the rest of the application's code into the container
+COPY . .
 
+# Define the command to run your application
 CMD ["python", "main.py"]
